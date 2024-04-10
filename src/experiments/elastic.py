@@ -8,8 +8,8 @@ import numpy as np
 import mlflow
 
 mlflow.set_tracking_uri("http://localhost:5000")
-mlflow.create_experiment(name="ex-3")
-mlflow_experiment_id = mlflow.get_experiment_by_name("ex-3").experiment_id
+mlflow.create_experiment(name="elasticnet-model")
+mlflow_experiment_id = mlflow.get_experiment_by_name("elasticnet-model").experiment_id
 
 data = pd.read_csv("../../data/wine.csv", sep=",")
 
@@ -38,12 +38,13 @@ for alpha in alphas:
 
         mlflow.log_param("alpha", alpha)
         mlflow.log_param("l1_ratio", l1_ratio)
-        mlflow.log_metric("rmse", rmse, step=0)
-        mlflow.log_metric("rmse", rmse, step=1)
+        mlflow.log_metric("rmse", rmse)
         mlflow.log_metric("r2", r2)
         mlflow.log_metric("mae", mae)
-        mlflow.sklearn.log_model(
-            sk_model=lr,
-            artifact_path="sklearn-artifacts",
-            registered_model_name="sklearn-lr-model"
-        )
+        mlflow.sklearn.log_model(lr, "model")
+
+df = mlflow.search_runs(mlflow_experiment_id)
+best_run_id = df.loc[df["metrics.rmse"].idxmin()]["run_id"]
+mlflow.register_model(
+    f"runs:/{best_run_id}/model", "best-elasticnet-model"
+)
