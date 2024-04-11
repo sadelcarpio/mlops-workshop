@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("https://gist.githubusercontent.com/tijptjik/9408623/raw/b237fa5848349a14a14e5d4107dc7897c21951f5/wine.csv")
+df = pd.read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv", sep=";")
 preprocessed_df = (df - df.min()) / (df.max() - df.min())
 
 X = preprocessed_df.drop(["quality"], axis=1)
