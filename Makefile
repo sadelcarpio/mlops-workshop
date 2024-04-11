@@ -18,11 +18,7 @@ training: preprocessing
 	docker run --rm -v ./src/pipeline/training.py:/src/training.py  -v ./data:/data --network mlops-network \
 	--name train training python -m src.training
 
-evaluate: training
-	docker run --rm -v ./src/pipeline/evaluate.py:/src/evaluate.py -v ./data:/data --network mlops-network \
-	--name eval evaluate python -m src.evaluate
-
-pipeline: evaluate
+pipeline: training
 
 stop-mlflow:
 	docker rm -f mlflow

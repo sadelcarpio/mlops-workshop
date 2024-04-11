@@ -32,4 +32,5 @@ with mlflow.start_run(experiment_id=experiment_id, run_name=f"{datetime.now().st
     mlflow.log_metric("mae", mae)
 
     run_id = run.info.run_id
+    mlflow.sklearn.log_model(model, "model")
     mlflow.register_model(f"runs:/{run_id}/model", "production-model")
