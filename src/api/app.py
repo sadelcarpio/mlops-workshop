@@ -10,8 +10,7 @@ model = mlflow.sklearn.load_model("models:/production-model/latest")
 
 
 class Features(BaseModel):
-    fixed: float
-    acidity: float
+    fixed_acidity: float
     volatile_acidity: float
     citric_acid: float
     residual_sugar: float
@@ -28,4 +27,4 @@ class Features(BaseModel):
 def predict(data: Features):
     data = pd.DataFrame(data.dict(), index=[0])
     quality = model.predict(data)
-    return {"predicted_quality": quality}
+    return {"predicted_quality": quality.item()}

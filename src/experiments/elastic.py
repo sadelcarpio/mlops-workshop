@@ -7,7 +7,7 @@ import numpy as np
 
 import mlflow
 
-mlflow.set_tracking_uri("http://localhost:5000")
+mlflow.set_tracking_uri("http://mlflow:5000")
 try:
     mlflow.create_experiment("elasticnet-model")
 except mlflow.exceptions.RestException:

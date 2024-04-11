@@ -10,6 +10,9 @@ mlflow: build
 	docker run -d -p 5000:5000 -v ./mlruns:/mlruns -v ./mlartifacts:/mlartifacts --network mlops-network \
  	--name mlflow mlflow-server
 
+experiment:
+	docker run --rm -v ./src/experiments:/src --network mlops-network --name experiments training python -m src.elastic
+
 preprocessing:
 	docker run --rm -v ./src/pipeline/preprocessing.py:/src/preprocessing.py -v ./data:/data --network mlops-network \
 	--name prep preprocessing python -m src.preprocessing
