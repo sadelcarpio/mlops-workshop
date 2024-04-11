@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-mlflow.set_tracking_uri("http://localhost:5000")
+mlflow.set_tracking_uri("http://mlflow:5000")
 model = mlflow.sklearn.load_model("models:/production-model/latest")
 
 
