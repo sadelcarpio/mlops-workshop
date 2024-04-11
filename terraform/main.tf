@@ -19,7 +19,7 @@ module "oidc" {
   sa_mapping = {
     (google_service_account.sa.account_id) = {
       sa_name   = google_service_account.sa.name
-      attribute = "attribute.repository/user/repo"
+      attribute = "attribute.repository/sadelcarpio/mlops-workshop"
     }
   }
 }
