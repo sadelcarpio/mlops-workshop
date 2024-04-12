@@ -34,6 +34,13 @@ pipeline: training
 serve:
 	docker run -d -p 8080:8080 -v ./src/api/app.py:/src/app.py --network mlops-network --name api serving
 
-stop-mlflow:
-	docker rm -f mlflow
+stop:
+	docker stop mlflow
+	docker stop api
 	docker network rm mlops-network
+
+clean: stop
+	sudo rm -rf mlartifacts
+	sudo rm -rf mlruns
+	docker rm mlflow
+	docker rm api
