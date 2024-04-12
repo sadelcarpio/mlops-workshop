@@ -12,7 +12,7 @@ try:
 except mlflow.exceptions.RestException:
     mlflow.set_experiment("production-run")
 
-experiment_id = mlflow.get_experiment_by_name(f"production-run").experiment_id
+experiment_id = mlflow.get_experiment_by_name("production-run").experiment_id
 
 with mlflow.start_run(experiment_id=experiment_id, run_name=f"{datetime.now().strftime('%Y-%m-%d')}") as run:
     X = pd.read_csv("../data/X.csv")

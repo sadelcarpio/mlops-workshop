@@ -15,7 +15,8 @@ except mlflow.exceptions.RestException:
 
 mlflow_experiment_id = mlflow.get_experiment_by_name("elasticnet-model").experiment_id
 
-data = pd.read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv", sep=";")
+data = pd.read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/"
+                   "wine-quality/winequality-red.csv", sep=";")
 
 alphas = [0.01, 0.03, 0.05]
 l1_ratio = 0.5
