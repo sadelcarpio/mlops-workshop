@@ -1,0 +1,22 @@
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'Makefile'
+      - '.github/workflows/ci.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build container image for linting-testing
+        run: make build-ci
+
+      - name: Lint code
+        run: make lint
+
+      - name: Test code
+        run: make test

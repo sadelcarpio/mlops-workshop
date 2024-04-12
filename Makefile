@@ -1,18 +1,23 @@
 .PHONY: mlflow pipeline build test
 
-build:
-	docker build -t mlflow-server -f images/mlflow.Dockerfile .
-	docker build -t preprocessing -f images/preprocessing.Dockerfile .
-	docker build -t training -f images/training.Dockerfile .
-	docker build -t serving -f images/serving.Dockerfile .
+# Targets para CI
+build-ci:
 	docker build -t testing-linting -f images/testing-linting.Dockerfile .
-	docker network create mlops-network
 
 lint:
 	docker run --rm -v ./src:/src testing-linting flake8 --exclude venv --max-line-length 120
 
 test:
 	docker run --rm -v ./src:/src testing-linting python -m unittest discover tests
+
+# Targets para CD
+
+build:
+	docker build -t mlflow-server -f images/mlflow.Dockerfile .
+	docker build -t preprocessing -f images/preprocessing.Dockerfile .
+	docker build -t training -f images/training.Dockerfile .
+	docker build -t serving -f images/serving.Dockerfile .
+	docker network create mlops-network
 
 mlflow:
 	docker run -d -p 5000:5000 -v ./mlruns:/mlruns -v ./mlartifacts:/mlartifacts --network mlops-network \
