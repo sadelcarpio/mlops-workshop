@@ -6,7 +6,7 @@ on:
       - '.github/workflows/ci.yml'
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
