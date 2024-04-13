@@ -27,11 +27,6 @@ test_x = test.drop(["quality"], axis=1)
 train_y = train["quality"]
 test_y = test[["quality"]]
 
-
-
-
-
-
 for alpha in alphas:
     with mlflow.start_run(experiment_id=mlflow_experiment_id, run_name=f"run-alpha={alpha}"):
         lr = ElasticNet(alpha=alpha, l1_ratio=l1_ratio, random_state=42)
